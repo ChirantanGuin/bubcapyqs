@@ -10,6 +10,9 @@
 
   gtag('config', 'G-2JHM7SP9CG');
 </script>
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
   <title>Semester Papers</title>
 </head>
 <link rel="stylesheet" type="text/css" href="styles.css">
@@ -61,12 +64,11 @@ const papersDiv=document.getElementById("papers");
 
         const a = document.createElement("a");
         a.href = urlData.publicUrl;
-        a.textContent = `Sem ${sem} - ${paper.year} PYQs`;
+        a.textContent = paper.file_name;
         a.download = "";
         a.onclick = () => {
         gtag('event', 'pyq_download', {
           semester: sem,
-          year: paper.year
         });
       };
         papersDiv.appendChild(a);

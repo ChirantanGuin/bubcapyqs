@@ -8,7 +8,11 @@
   gtag('js', new Date());
 
   gtag('config', 'G-2JHM7SP9CG');
-</script><title>Upload PYQs</title></head>
+</script>
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
+<title>Upload PYQs</title></head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <body>
@@ -17,7 +21,7 @@
 
         <table  border=0 style="width:20%;height:55%">
            <tr><td align="center">
-        <select style="width:100%;height:80%;font-size: 100%;" id="semester">
+        <select  id="semester">
             <option value="">Select Semester</option>
             <option value="1">Semester 1</option>
             <option value="2">Semester 2</option>
@@ -29,18 +33,13 @@
             <option value="8" disabled>Semester 8</option>
         </select>
         </td></tr>
-        <tr><td align="center">
-        <select style="width:100%;height:80%;font-size: 100%;" id="year">
-            <option value="">Select Year</option>
-        </select>
-        </td></tr>
         <tr>
             <td>
                 <input type="file"  id="file" accept="application/pdf">
             </td></tr>
             <tr><td>
 
-                <center><button style="transform:scale(1.5);" onclick="uploadPYQ()">Upload</button></center>
+                <center><button onclick="uploadPYQ()">Upload</button></center>
 
             </td>
         </tr>
@@ -61,24 +60,11 @@
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 <script>
-  const select = document.getElementById("year");
-  const currentYear = new Date().getFullYear();
-  
-  for (let y = currentYear - 15; y <= currentYear; y++) {
-    const option=document.createElement("option");
-    option.value = y;
-    option.textContent = y;
-    select.appendChild(option);
-  }
-</script>
-<script>
     async function uploadPYQ()
     {
         const semester=document.getElementById("semester").value;
-        const year=document.getElementById("year").value;
         const file = document.getElementById("file").files[0];
-        
-        if(!semester || !year || !file)
+        if(!semester || !file)
     {
         alert("Fill all fields");
         return;
@@ -110,8 +96,8 @@
     {
     //Needs the code of uploading here
       showUploadModal();
-
-    const filePath = `sem${semester}/${Math.random().toString(36).substring(2,10)}_Sem${semester}_${year}.pdf`;
+    const file_name=`${file.name.substring(0,file.name.lastIndexOf("."))}_Sem${semester}${Math.random().toString(36).substring(2,10)}.pdf`;
+    const filePath = `sem${semester}/${file_name}`;
 
     const { error: uploadError } = await Supabase
     .storage
@@ -122,16 +108,16 @@
     console.error(uploadError);
     return;
   }
-  saveMetadata(semester, year, filePath);
+  saveMetadata(semester, file_name, filePath);
     }
   }
-   async function saveMetadata(semester, year, filePath) {
+   async function saveMetadata(semester, file_name, filePath) {
   const { data, error } = await Supabase
     .from("bubcapyqs")
     .insert([
       {
         semester: semester,
-        year: year,
+        file_name:file_name,
         file_url: filePath,
       }
     ]);

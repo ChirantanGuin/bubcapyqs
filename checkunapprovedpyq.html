@@ -9,6 +9,9 @@
 
   gtag('config', 'G-2JHM7SP9CG');
 </script>
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
 <title>Check unapproved PYQs</title></head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -57,20 +60,19 @@ function renderPapers(papers) {
       .getPublicUrl(p.file_url);
 
     const div = document.createElement("div");
+    div.className="paper-meta";
     div.innerHTML = `
       <p>Semester: ${p.semester}</p>
-      <p>Year: ${p.year}</p>
       <a href="${data.publicUrl}" target="_blank">View Paper</a>
-      <br/><br/>
       <div id='correct_block'>Is this paper correct?
-      <button onclick="vote('${p.id}', ${p.votes})">
+      <button  onclick="vote('${p.id}', ${p.votes})">
         Yes,this paper is correct.
       </button>
       <button onclick="downvote('${p.id}', ${p.votes})">
         No,this paper is wrong.
       </button>
       </div>
-      <hr>
+      <div class="divider"></div>
     `;
     container.appendChild(div);
   });
