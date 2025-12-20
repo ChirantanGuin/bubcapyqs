@@ -63,6 +63,12 @@ const papersDiv=document.getElementById("papers");
         a.href = urlData.publicUrl;
         a.textContent = `Sem ${sem} - ${paper.year} PYQs`;
         a.download = "";
+        a.onclick = () => {
+        gtag('event', 'pyq_download', {
+          semester: sem,
+          year: paper.year
+        });
+      };
         papersDiv.appendChild(a);
         papersDiv.appendChild(document.createElement("br"));
         papersDiv.appendChild(document.createElement("br"));

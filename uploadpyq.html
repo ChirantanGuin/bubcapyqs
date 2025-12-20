@@ -36,7 +36,7 @@
         </td></tr>
         <tr>
             <td>
-                <input type="file"  id="file" accept="appliccation/pdf">
+                <input type="file"  id="file" accept="application/pdf">
             </td></tr>
             <tr><td>
 
@@ -83,6 +83,31 @@
         alert("Fill all fields");
         return;
     }
+
+
+      // size check
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Max file size is 10MB");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const bytes = new Uint8Array(e.target.result);
+      const header = String.fromCharCode(...bytes.slice(0, 5));
+      if (header !== "%PDF-") {
+        alert("Invalid PDF file");
+        return;
+      }
+      uploadStart(file);
+
+    };
+
+    reader.readAsArrayBuffer(file.slice(0, 5));
+
+    async function uploadStart(file)
+    {
     //Needs the code of uploading here
       showUploadModal();
 
@@ -99,7 +124,7 @@
   }
   saveMetadata(semester, year, filePath);
     }
-
+  }
    async function saveMetadata(semester, year, filePath) {
   const { data, error } = await Supabase
     .from("bubcapyqs")
