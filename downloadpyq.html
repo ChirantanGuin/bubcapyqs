@@ -1,0 +1,47 @@
+<html>
+    <head><title>Download PYQs</title></head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <body>
+        <center>
+        <h1>Download BU BCA PYQs</h1>
+
+        <table style="width:20%;height:40%">
+            <tr><td>
+                <br/>
+                <select style="width: 100%;height:40%;font-size: 100%;" id="semester">
+                    <option value="">Select Semester</option>
+                    <option value="1">SEMESTER 1</option>
+                    <option value="2">SEMESTER 2</option>
+                    <option value="3">SEMESTER 3</option>
+                    <option value="4">SEMESTER 4</option>
+                    <option value="5">SEMESTER 5</option>
+                    <option value="6">SEMESTER 6</option>
+                    <option value="7" disabled>SEMESTER 7</option>
+                    <option  value="8" disabled>SEMESTER 8</option>
+
+                </select>
+
+            <tr><td>
+                <center><button onclick="search()"  style="width:80%;height:30%;font-size:100%;font-weight: bold;" type="submit">Search</button></center>
+            </td></tr>
+
+        </table>
+        </center>
+    </body>
+</html>
+
+
+
+<script>
+  function search()
+  {
+    const sem=document.getElementById("semester").value;
+    if(!sem)
+  {
+    alert("Please select a semester");
+    return;
+  }
+
+  window.location.href = `sem.html?sem=${sem}`;
+  }
+</script>
